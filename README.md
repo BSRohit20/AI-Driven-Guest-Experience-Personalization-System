@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project performs sentiment analysis on customer feedback data using a pre-trained transformer model. The code analyzes each review, determines whether the sentiment is positive or negative, and outputs the confidence score for the prediction. The results are saved to a CSV file for further analysis.
+This repository contains Python code for performing sentiment analysis on a customer feedback dataset using Hugging Face's pre-trained `distilbert-base-uncased-finetuned-sst-2-english` model. The analysis enriches the dataset by adding sentiment labels and confidence scores for each review.
 
 ## Requirements
 
