@@ -1,111 +1,111 @@
-# Feedback Sentiment Analysis
+# Feedback Analysis Project
 
-This project classifies customer feedback based on sentiment (Positive, Negative, Neutral) and categorizes it into different areas such as Dining, Reception, Facilities, and Cleanliness. The analysis uses the Hugging Face `transformers` library for sentiment analysis and keyword-based rules for area classification.
+This project demonstrates how to analyze customer feedback using NLP pipelines from the Hugging Face Transformers library. The analysis involves two tasks:
+
+1. Sentiment Analysis: Classifying feedback as Positive, Negative, or Neutral.
+2. Area Classification: Identifying the area of concern (e.g., Dining, Reception, etc.) using zero-shot classification.
 
 ## Features
+- **Sentiment Analysis:** Uses the `distilbert-base-uncased-finetuned-sst-2-english` model for sentiment classification.
+- **Area Classification:** Employs the `facebook/bart-large-mnli` model for zero-shot classification.
+- **Statistical Insights:** Provides sentiment and area-based statistics.
+- **Export Results:** Saves the analysis to CSV and JSON files.
 
-- **Sentiment Analysis**: Classifies feedback as Positive, Negative, or Neutral.
-- **Area Classification**: Categorizes feedback into predefined areas based on keywords.
-- **Statistical Summary**: Provides counts for each sentiment and area.
-- **CSV Output**: Saves the analysis results in a CSV file for further use.
+## Prerequisites
 
-## Requirements
+1. Python 3.9+
+2. Required Python libraries:
+   - `transformers`
+   - `pandas`
+   - `huggingface_hub`
 
-- Python 3.9+
-- Libraries:
-  - `transformers`
-  - `pandas`
-  - `huggingface_hub`
+Install the dependencies using pip:
+```bash
+pip install transformers pandas huggingface_hub
+```
 
-## Installation
+3. A Hugging Face account for authentication.
 
-1. Clone the repository:
+## Setup
+
+1. Clone this repository:
    ```bash
    git clone https://github.com/BSRohit20/AI-Driven-Guest-Experience-Personalization-System.git
+   ```
+2. Navigate to the project directory:
+   ```bash
    cd AI-Driven-Guest-Experience-Personalization-System
    ```
+3. Authenticate with Hugging Face:
+```python
+from huggingface_hub import login
+login("<your_huggingface_token>")
+```
+Replace `<your_huggingface_token>` with your personal access token from [Hugging Face](https://huggingface.co/).
 
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+4. Prepare your dataset:
+   - Place your CSV file containing customer feedback in the project directory.
+   - The file should have a column named `Reviews` containing the feedback text.
 
-3. Install the required libraries:
-   ```bash
-   pip install transformers pandas huggingface_hub
-   ```
 
 ## Usage
 
-1. **Prepare the Dataset**:
-   Ensure your dataset is in CSV format with a column named `Reviews` containing customer feedback. Example:
-   ```csv
-   Reviews
-   "The food was amazing, and the service was excellent."
-   "The room was clean but noisy."
-   ```
-
-2. **Run the Script**:
-   Update the `file_path` variable in the script with the path to your dataset, then execute:
+1. Place your customer feedback CSV file in the project directory.
+2. Update the file path in the script if necessary.
+3. Run the script:
    ```bash
-   python analyze_feedback.py
+   python feedback_analysis.py
    ```
 
-3. **View Results**:
-   The results will be saved in `feedback_analysis_results.csv` in the same directory. You can also view the statistical summary in the terminal.
+## Output
 
-## Code Structure
+- A CSV file (`feedback_analysis_results.csv`) containing the following columns:
+  - Feedback: The original customer feedback.
+  - Sentiment: Sentiment classification (Positive, Negative, Neutral).
+  - Area: Area classification (Dining, Reception, Facilities, Cleanliness, General).
+- A JSON file (`feedback_analysis_results.json`) with the same data.
 
-- **Dataset Loading**: Loads the CSV file into a pandas DataFrame.
-- **Sentiment Classification**: Uses the Hugging Face pipeline for sentiment analysis.
-- **Area Classification**: Categorizes feedback using keyword-based rules.
-- **Statistical View**: Displays counts of each sentiment and area.
-- **CSV Output**: Saves the analyzed data to a file.
+### Dataset Output Example
 
-## Example Output
-
-### Input
-
+Input:
 ```csv
 Reviews
-"The gym and pool were well-maintained and exceeded expectations."
-"Reception staff was rude, and the check-in process took forever."
+"General service was average, but I loved the helpful staff."
+"The receptionist greeted us warmly and ensured our check-in was smooth."
+"The dining area was messy and poorly managed."
 ```
 
-### Output (CSV)
-
+Output (CSV):
 ```csv
 Feedback,Sentiment,Area
-"The gym and pool were well-maintained and exceeded expectations.",Positive,Facilities
-"Reception staff was rude, and the check-in process took forever.",Negative,Reception
+"General service was average, but I loved the helpful staff.",Positive,General
+"The receptionist greeted us warmly and ensured our check-in was smooth.",Positive,Reception
+"The dining area was messy and poorly managed.",Negative,Cleanliness
 ```
 
-### Statistical Summary
+### Statistics for Provided Dataset
 
-```
-Sentiment Statistics:
-Positive    1
-Negative    1
-Name: Sentiment, dtype: int64
+#### Sentiment Statistics:
+- **Neutral**: 28,853
+- **Positive**: 9,591
 
-Area Statistics:
-Facilities    1
-Reception     1
-Name: Area, dtype: int64
-```
+#### Area Statistics:
+- **General**: 11,403
+- **Dining**: 7,725
+- **Facilities**: 7,680
+- **Reception**: 5,824
+- **Cleanliness**: 5,812
 
-## Hugging Face Integration
+## Statistical Summary
 
-Log in to Hugging Face before running the script:
-```python
-from huggingface_hub import login
-login("your_huggingface_token")
-```
-Replace `your_huggingface_token` with your Hugging Face token.
+The script outputs:
+- Counts of feedback by sentiment.
+- Counts of feedback by area.
 
 
 ## Acknowledgments
+- Hugging Face for their powerful NLP models.
+- OpenAI for providing assistance in project development.
 
-- [Hugging Face](https://huggingface.co/) for providing the sentiment analysis models.
-- The Python community for their excellent libraries and tools.
+
+
