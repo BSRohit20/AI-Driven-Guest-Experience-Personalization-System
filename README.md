@@ -57,6 +57,14 @@ Both files contain the following columns:
 - **Sentiment**: Sentiment classification (Positive/Negative).
 - **Area**: Identified area of concern.
 
+ ### 4. Statistical Summary
+
+The script outputs statistical summaries of sentiment and area classifications to the console. This includes:
+
+- **Sentiment Statistics**: Distribution of Positive and Negative feedback.
+- **Area Statistics**: Frequency of feedback assigned to each area.
+
+
 #### Results
 
 - The **CSV file** provides an easy-to-view tabular format of the analysis results.
@@ -69,12 +77,16 @@ Both files contain the following columns:
 | "Dining area was not clean."      | Negative  | Cleanliness  |
 | "Facilities were top-notch."      | Positive  | Facilities   |
 
-### 4. Statistical Summary
 
-The script outputs statistical summaries of sentiment and area classifications to the console. This includes:
+### Sentiment Statistics for the dataset I used
+- **Positive**: 12,513 feedback items
+- **Negative**: 2,487 feedback items
+#### Area Statistics
+- **General**: 6,030 feedback items
+- **Reception**: 3,053 feedback items
+- **Cleanliness**: 2,981 feedback items
+- **Dining**: 2,936 feedback items
 
-- **Sentiment Statistics**: Distribution of Positive and Negative feedback.
-- **Area Statistics**: Frequency of feedback assigned to each area.
 
 ## File Structure
 
