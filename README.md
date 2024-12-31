@@ -1,93 +1,111 @@
-# Feedback Analysis Project
+# Feedback Analysis with Hugging Face Models
 
-This project performs sentiment analysis and area classification on customer feedback using machine learning models hosted on Hugging Face. It processes customer reviews to determine their sentiment (Positive/Negative) and categorize them into specific areas of interest.
+This project analyzes customer feedback data using Hugging Face's pre-trained models for sentiment analysis and area classification. The feedback is processed to determine its sentiment (Positive/Negative) and the relevant area of concern (Dining, Reception, Facilities, Cleanliness, or General).
 
 ## Features
 
-- **Sentiment Analysis**: Classifies feedback as either `Positive` or `Negative`.
-- **Area Classification**: Categorizes feedback into predefined areas like `Dining`, `Reception`, `Facilities`, `Cleanliness`, and `General`.
-- **LLM-Powered Analysis**: Leverages large language models (LLMs) from Hugging Face for advanced text classification and sentiment detection.
-- **Statistical Insights**: Generates summary statistics for sentiment and area classifications.
-- **Output Formats**: Saves results in both CSV and JSON formats for further analysis.
+- **Sentiment Analysis**: Classifies feedback as Positive or Negative using the `distilbert-base-uncased-finetuned-sst-2-english` model.
+- **Area Classification**: Identifies the area of concern from predefined labels using the `facebook/bart-large-mnli` model.
+- **Data Processing**: Analyzes a dataset of customer feedback and outputs results to CSV and JSON files.
+- **Statistical Insights**: Generates a summary of sentiment and area statistics.
 
 ## Requirements
 
-- Python 3.9 or later
-- Required libraries: `pandas`, `requests`
+### Python Libraries
 
-## Setup and Installation
+Ensure you have the following Python libraries installed:
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/BSRohit20/AI-Driven-Guest-Experience-Personalization-System.git
-   cd AI-Driven-Guest-Experience-Personalization-System
-   ```
+- `pandas`
+- `requests`
 
-2. Install required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+You can install the required libraries using:
 
-3. Set up the Hugging Face API token:
-   - Obtain your API token from [Hugging Face](https://huggingface.co/).
-   - Replace the `API_TOKEN` variable in the script with your token.
+```bash
+pip install pandas requests
+```
+
+### Hugging Face API Token
+
+Sign up for a [Hugging Face](https://huggingface.co/) account to obtain your API token. Replace `Your_API_Key` in the script with your token.
 
 ## Usage
 
-1. Place your feedback dataset in the project directory (e.g., `updated_customer_feedback.csv`).
+### 1. Prepare the Dataset
 
-2. Run the analysis script:
-   ```bash
-   python feedback_analysis.py
-   ```
+Prepare a CSV file named `updated_customer_feedback.csv` with at least one column:
 
-3. Outputs will be saved in the `results` directory:
-   - CSV: `feedback_analysis_results.csv`
-   - JSON: `feedback_analysis_results.json`
+- `Reviews`: Contains customer feedback as text.
 
-## Simulated Output Example
+### 2. Run the Script
 
-If the API is inaccessible, the script can simulate results for demonstration purposes. Simulated outputs are also saved in the same format.
+Execute the script by running:
 
-## Statistical Insights
+```bash
+python feedback_analysis.py
+```
 
-The script generates statistical summaries for the analyzed dataset, including:
+### 3. Output
 
-- **Sentiment Statistics**: A breakdown of the number of `Positive` and `Negative` feedback entries.
-- **Area Statistics**: Counts of feedback categorized into areas like `Dining`, `Reception`, etc.
+The script produces:
 
-Example Output:
+- A CSV file: `feedback_analysis_results.csv`
+- A JSON file: `feedback_analysis_results.json`
 
-### Sentiment Statistics:
-- Positive: 70%
-- Negative: 30%
+Both files contain the following columns:
 
-### Area Statistics:
-- Dining: 25%
-- Reception: 20%
-- Facilities: 30%
-- Cleanliness: 15%
-- General: 10%
+- **Feedback**: Original customer feedback.
+- **Sentiment**: Sentiment classification (Positive/Negative).
+- **Area**: Identified area of concern.
 
-These statistics provide a quick overview of customer sentiment and focus areas, enabling better decision-making.
+#### Results
 
-## Files
+- The **CSV file** provides an easy-to-view tabular format of the analysis results.
+- The **JSON file** is structured for integration with other applications or for further processing.
+- Example output rows include sentiment and area classifications for each piece of feedback:
 
-- `feedback_analysis.py`: Main script for analyzing feedback.
-- `updated_customer_feedback.csv`: Example input dataset.
-- `results/`: Directory for saving output files.
+| Feedback                          | Sentiment | Area         |
+|-----------------------------------|-----------|--------------|
+| "The reception was very helpful." | Positive  | Reception    |
+| "Dining area was not clean."      | Negative  | Cleanliness  |
+| "Facilities were top-notch."      | Positive  | Facilities   |
 
-## Example Dataset
+### 4. Statistical Summary
 
-| Reviews                                 | Sentiment | Area         |
-|-----------------------------------------|-----------|--------------|
-| "The dining experience was exceptional" | Positive  | Dining       |
-| "Reception was slow to respond"         | Negative  | Reception    |
-| "Facilities were clean and well-kept"   | Positive  | Facilities   |
+The script outputs statistical summaries of sentiment and area classifications to the console. This includes:
 
+- **Sentiment Statistics**: Distribution of Positive and Negative feedback.
+- **Area Statistics**: Frequency of feedback assigned to each area.
+
+## File Structure
+
+```
+feedback_analysis/
+|
+|-- feedback_analysis.py         # Main script
+|-- updated_customer_feedback.csv # Input data (example dataset)
+|-- feedback_analysis_results.csv # Output results in CSV format
+|-- feedback_analysis_results.json # Output results in JSON format
+```
+
+## Troubleshooting
+
+### Common Errors
+
+#### Invalid API Token
+
+Ensure your API token is correctly set in the script under the variable `API_TOKEN`.
+
+#### API Rate Limits
+
+The Hugging Face API may enforce rate limits. Upgrade your plan if necessary.
+
+#### Unexpected Output Format
+
+If the API response format changes, the script may fail. Check the raw responses logged in the console for debugging.
 
 
 ## Contributions
 
-Contributions are welcome! Please create a pull request or open an issue for any suggestions or improvements.
+Contributions are welcome! Feel free to fork the repository and submit pull requests.
+
 
