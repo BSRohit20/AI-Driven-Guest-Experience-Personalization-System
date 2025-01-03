@@ -1,83 +1,130 @@
-# Sentiment Analysis Tool
 
-This project analyzes hotel guest feedback to determine the sentiment (Positive, Negative, or Neutral) and, in the case of negative feedback, identifies the specific area responsible for the dissatisfaction. It supports both batch processing of datasets and manual entry for individual feedback analysis.
+# 🏨 Hotel Feedback Sentiment Analyzer
 
-## Features
+## 🌟 Overview
+The **Hotel Feedback Sentiment Analyzer** is an advanced AI-powered tool for hotel management teams to analyze guest feedback efficiently. It provides sentiment analysis to classify feedback as **Positive**, **Negative**, or **Neutral**, and for negative feedback, identifies specific areas of concern. This tool enables hotels to address customer issues proactively and improve service quality.
 
-- **Sentiment Analysis**: Categorizes feedback into Positive, Negative, or Neutral.
-- **Responsible Area Detection**: Pinpoints the area of concern for negative feedback, such as 'Room Quality,' 'Cleanliness,' or 'Staff Service.'
-- **Batch Processing**: Processes an entire dataset of feedback and outputs results to a new file.
-- **Manual Feedback Entry**: Allows real-time analysis of single feedback entries.
+---
 
-## Requirements
+## 💡 Features
+### Core Functionality:
+- **Sentiment Classification**: Determines whether feedback is Positive, Negative, or Neutral.
+- **Responsibility Identification**: Pinpoints specific areas for improvement if feedback is negative:
+  - Room Quality
+  - Cleanliness
+  - Staff Service
+  - Food & Beverage
+  - Amenities
+  - Check-in/Check-out Process
+  - Location, and more.
+- **Interactive Feedback Analysis**: Analyze feedback in real-time using a user-friendly interface.
+- **Batch Processing**: Analyze large datasets of feedback in CSV format.
 
-- Python 3.9+
-- Required libraries: `openai`, `pandas`, `pydantic`
+### User-Friendly Gradio Interface:
+- Enter guest feedback directly.
+- Get real-time analysis in JSON format.
+- View examples for quick testing.
 
-## About the LLM
+### Batch Processing:
+- Process multiple feedback entries at once from a CSV file.
+- Automatically updates the file with sentiment analysis results.
 
-This tool leverages a large language model (LLM) provided by OpenAI. The LLM is fine-tuned to understand and analyze textual data, enabling it to identify sentiment and specific areas of concern in feedback. By using natural language processing capabilities, it ensures accurate and context-aware sentiment analysis. The LLM is accessed via OpenAI’s API and can handle both structured datasets and individual inputs effectively.
+---
 
-## Installation
+## 🚀 How It Works
+1. **Feedback Input**: 
+   - Provide feedback through the Gradio interface or upload a dataset for batch processing.
+2. **AI Model Processing**: 
+   - The AI analyzes feedback, determines sentiment, and identifies responsible areas for negative feedback.
+3. **Output Results**:
+   - For the Gradio interface, results are displayed in JSON format.
+   - For batch processing, results are saved to an updated CSV file.
 
-1. Clone this repository.
-2. Install dependencies:
+---
+
+## 🔧 Installation
+
+### Prerequisites:
+- Python 3.9 or higher.
+- An API key from OpenAI or OpenRouter.
+
+### Steps:
+1. Clone the repository:
    ```bash
-   pip install openai pandas pydantic
+   git clone https://github.com/BSRohit20/AI-Driven-Guest-Experience-Personalization-System.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd Feedback-Sentiment-Analysis
+   ```
+3. Install required dependencies:
+   ```bash
+   pip install gradio openai pydantic pandas
    ```
 
-## Usage
+---
 
-1. **Setup OpenAI API**:
-   Replace `YOUR_API_KEY` with your OpenAI API key in the code.
+## 🛠️ Setup
+1. Obtain an API key from [OpenAI](https://openai.com/) or [OpenRouter](https://openrouter.ai/).
+2. Open the script file and replace `Your_API_Key` with your API key.
 
-2. **Prepare Dataset**:
-   Ensure your feedback dataset is in CSV format with a column containing guest feedback.
+---
 
-3. **Run the Script**:
+## 📖 Usage
+
+### **Interactive Feedback Analysis**
+1. Run the Gradio app:
    ```bash
-   python Feedback_Sentiment_Analysis.py
+   python app.py
    ```
-   - Enter the file path to your dataset when prompted (e.g., `feedback.csv`).
-   - Provide the column name containing the feedback (e.g., `Review`).
+2. Open the Gradio URL provided in the terminal.
+3. Enter guest feedback in the input box or try the example feedback.
+4. View the JSON-formatted analysis result.
 
-4. **Manual Feedback Analysis**:
-   Modify the script to call `provide_sentiment()` with a single feedback string for instant results.
+### **Batch Feedback Analysis**
+1. Prepare a CSV file containing guest feedback. The feedback column can have any name (e.g., `Reviews`).
+2. Run the batch analysis script:
+   ```bash
+   python analyze_feedback.py
+   ```
+3. Provide:
+   - The file path to your dataset (e.g., `/path/to/feedback.csv`).
+   - The column name containing feedback.
+4. Results will be saved to a new file: `feedback_analysis_output.csv`.
 
-5. **Results**:
-   - For batch processing, the script will create a new file named `feedback_analysis_output.csv` with the sentiment analysis results and responsible areas.
-   - For manual entries, the sentiment and responsible area will be displayed directly in the console.
+---
 
-## Example
+## 🖥️ Example
 
-### Input
-#### Dataset Example (`feedback.csv`):
-| Review                         |
-|--------------------------------|
-| "The room was clean and tidy."|
-| "Terrible service at the reception." |
-| "The food was okay, but the wait time was long." |
-
-#### Manual Feedback Example:
-```bash
-python sentiment_analysis.py
-Enter feedback: "The staff was very friendly but the room was noisy."
+### **Interactive Analysis Example**
+#### Input:
+**Feedback**: "The room was dirty, and the staff were rude."
+#### Output:
+```json
+{
+  "sentiment": "Negative",
+  "responsible_area": "Room Quality, Staff Service"
+}
 ```
 
-### Output
-#### Dataset Output (`feedback_analysis_output.csv`):
-| Review                         | Sentiment | Responsible Area       |
-|--------------------------------|-----------|------------------------|
-| "The room was clean and tidy."| Positive  | N/A                    |
-| "Terrible service at the reception." | Negative  | Staff Service          |
-| "The food was okay, but the wait time was long." | Neutral   | N/A                    |
+---
 
-#### Manual Feedback Output:
+## ⚙️ Dependencies
+- **Python 3.9+**: Programming language.
+- **Gradio**: Interactive UI framework.
+- **OpenAI**: API for AI-powered sentiment analysis.
+- **Pydantic**: Data validation and settings management.
+- **Pandas**: Data processing and analysis.
+
+
+---
+
+
+## 🌍 Acknowledgements
+- **Gradio**: For enabling a seamless user interface.
+- **OpenAI**: For the sentiment analysis model.
+- **Pandas**: For efficient data manipulation.
+- Hotel guests for their invaluable feedback, driving service improvements.
+
+
 ```
-Sentiment: Mixed
-Responsible Area: Staff Service, Noise
-```
-
-## Error Handling
-- If the API call fails or the response is invalid, the tool assigns `Error` to the `Sentiment` column and `N/A` to the `Responsible Area` column.
-
