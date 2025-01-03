@@ -1,137 +1,83 @@
-# Sentiment Analysis and Feedback Classification
+# Sentiment Analysis Tool
 
-This project leverages pre-trained models from Hugging Face to analyze customer feedback data. It performs sentiment analysis to identify whether feedback is positive or negative and classifies negative feedback into predefined categories based on areas of concern. The tool can process datasets or allow for real-time interactive feedback analysis.
+This project analyzes hotel guest feedback to determine the sentiment (Positive, Negative, or Neutral) and, in the case of negative feedback, identifies the specific area responsible for the dissatisfaction. It supports both batch processing of datasets and manual entry for individual feedback analysis.
 
 ## Features
 
-1. **Sentiment Analysis**:
-   - Determines whether feedback is positive or negative.
-   - Uses the Hugging Face model `distilbert-base-uncased-finetuned-sst-2-english`.
+- **Sentiment Analysis**: Categorizes feedback into Positive, Negative, or Neutral.
+- **Responsible Area Detection**: Pinpoints the area of concern for negative feedback, such as 'Room Quality,' 'Cleanliness,' or 'Staff Service.'
+- **Batch Processing**: Processes an entire dataset of feedback and outputs results to a new file.
+- **Manual Feedback Entry**: Allows real-time analysis of single feedback entries.
 
-2. **Area Classification**:
-   - For negative feedback, identifies the specific area of concern.
-   - Predefined categories include:
-     - Dining
-     - Reception
-     - Facilities
-     - Cleanliness
-     - General
-   - Utilizes the `facebook/bart-large-mnli` model for classification.
+## Requirements
 
-3. **Dataset Analysis**:
-   - Processes a CSV file containing customer feedback data.
-   - Outputs detailed sentiment and area classification results.
-   - Generates statistical insights into customer sentiment and areas of concern.
+- Python 3.9+
+- Required libraries: `openai`, `pandas`, `pydantic`
 
-4. **Interactive Feedback Tool**:
-   - Provides a user-friendly interface for real-time feedback analysis.
-   - Classifies feedback sentiment and areas of concern instantly.
+## About the LLM
 
-## About Large Language Models (LLMs)
+This tool leverages a large language model (LLM) provided by OpenAI. The LLM is fine-tuned to understand and analyze textual data, enabling it to identify sentiment and specific areas of concern in feedback. By using natural language processing capabilities, it ensures accurate and context-aware sentiment analysis. The LLM is accessed via OpenAI’s API and can handle both structured datasets and individual inputs effectively.
 
-Large Language Models (LLMs) like the ones used in this project are advanced AI systems trained on vast amounts of textual data. They can perform a variety of natural language processing tasks, such as:
+## Installation
 
-- Sentiment Analysis: Understanding the emotional tone of text.
-- Text Classification: Categorizing text into predefined categories.
-- Question Answering, Text Generation, and more.
-
-In this project:
-- The `distilbert-base-uncased-finetuned-sst-2-english` model is a fine-tuned version of the DistilBERT model specialized in sentiment analysis.
-- The `facebook/bart-large-mnli` model is a variant of the BART transformer model fine-tuned for Natural Language Inference (NLI), enabling multi-label text classification.
-
-These models enable efficient and accurate processing of customer feedback, allowing businesses to gain actionable insights.
-
-## Technologies Used
-
-- **Python**: For implementation and scripting.
-- **Pandas**: For data manipulation and statistical analysis.
-- **Requests**: For API interactions with Hugging Face models.
-- **Hugging Face Transformers**: Pre-trained models for NLP tasks.
-
-## Prerequisites
-
-- Python 3.9 or higher.
-- A Hugging Face account with an API token.
-
-## Setup Instructions
-
-1. **Clone the Repository**:
+1. Clone this repository.
+2. Install dependencies:
    ```bash
-   git clone https://github.com/BSRohit20/AI-Driven-Guest-Experience-Personalization-System
-   cd AI-Driven-Guest-Experience-Personalization-System
+   pip install openai pandas pydantic
    ```
-
-2. **Install Dependencies**:
-   ```bash
-   pip install pandas requests
-   ```
-
-3. **Set API Token**:
-   Replace `API_TOKEN` in the script with your Hugging Face API token.
-
-4. **Prepare the Dataset**:
-   - Place your feedback dataset (CSV format) in the project directory.
-   - Default filename: `updated_customer_feedback.csv`.
 
 ## Usage
 
-### Dataset Analysis
+1. **Setup OpenAI API**:
+   Replace `YOUR_API_KEY` with your OpenAI API key in the code.
 
-1. Run the script to analyze a dataset:
+2. **Prepare Dataset**:
+   Ensure your feedback dataset is in CSV format with a column containing guest feedback.
+
+3. **Run the Script**:
    ```bash
    python Feedback_Sentiment_Analysis.py
    ```
+   - Enter the file path to your dataset when prompted (e.g., `feedback.csv`).
+   - Provide the column name containing the feedback (e.g., `Review`).
 
-2. The script performs the following steps:
-   - Loads the dataset from the specified CSV file.
-   - Analyzes feedback for sentiment and area classification.
-   - Generates statistical summaries for sentiment and areas of concern.
-   - Saves the results to:
-     - `feedback_analysis_results.csv` (CSV format)
-     - `feedback_analysis_results.json` (JSON format)
+4. **Manual Feedback Analysis**:
+   Modify the script to call `provide_sentiment()` with a single feedback string for instant results.
 
-3. Sample Output:
-   - Example rows from the CSV output:
+5. **Results**:
+   - For batch processing, the script will create a new file named `feedback_analysis_output.csv` with the sentiment analysis results and responsible areas.
+   - For manual entries, the sentiment and responsible area will be displayed directly in the console.
 
-| Feedback                          | Sentiment | Area       |
-|-----------------------------------|-----------|------------|
-| "The room was spotless."         | Positive  | N/A        |
-| "The dining service was terrible." | Negative  | Dining     |
+## Example
 
-### Interactive Feedback Tool
+### Input
+#### Dataset Example (`feedback.csv`):
+| Review                         |
+|--------------------------------|
+| "The room was clean and tidy."|
+| "Terrible service at the reception." |
+| "The food was okay, but the wait time was long." |
 
-1. Run the interactive feedback tool:
-   ```bash
-   python feedback_tool.py
-   ```
-
-2. Enter feedback as prompted in the terminal:
-   - Input: "The reception service was too slow."
-   - Output: "The feedback sentiment is Negative. Area of concern: Reception."
-
-3. Exit the tool by typing `exit`.
-
-## Output Examples
-
-### Dataset Analysis Results
-| Feedback                          | Sentiment | Area       |
-|-----------------------------------|-----------|------------|
-| "The room was spotless."         | Positive  | N/A        |
-| "The dining service was terrible." | Negative  | Dining     |
-
-### Interactive Feedback Tool Example
-```
-Please enter your feedback (or type 'exit' to quit): The room was perfect!
-The feedback sentiment is Positive. Thank you for your feedback!
-
-Please enter your feedback (or type 'exit' to quit): The reception was unhelpful.
-The feedback sentiment is Negative. Area of concern: Reception.
+#### Manual Feedback Example:
+```bash
+python sentiment_analysis.py
+Enter feedback: "The staff was very friendly but the room was noisy."
 ```
 
-## Known Issues
+### Output
+#### Dataset Output (`feedback_analysis_output.csv`):
+| Review                         | Sentiment | Responsible Area       |
+|--------------------------------|-----------|------------------------|
+| "The room was clean and tidy."| Positive  | N/A                    |
+| "Terrible service at the reception." | Negative  | Staff Service          |
+| "The food was okay, but the wait time was long." | Neutral   | N/A                    |
 
-1. **Internet Dependency**:
-   - A stable internet connection is required for API calls to Hugging Face models.
+#### Manual Feedback Output:
+```
+Sentiment: Mixed
+Responsible Area: Staff Service, Noise
+```
 
-2. **Feedback Format**:
-   - Unexpected or ambiguous feedback may result in classification errors.
+## Error Handling
+- If the API call fails or the response is invalid, the tool assigns `Error` to the `Sentiment` column and `N/A` to the `Responsible Area` column.
+
