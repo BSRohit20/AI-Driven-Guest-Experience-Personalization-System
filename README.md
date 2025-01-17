@@ -1,5 +1,5 @@
 
-# 🏨 Hotel Feedback Sentiment Analyzer
+# 🏨 Hotel Managment system
 
 ## 🌟 Overview
 The **Hotel Feedback Sentiment Analyzer** is an advanced AI-powered tool for hotel management teams to analyze guest feedback efficiently. It provides sentiment analysis to classify feedback as **Positive**, **Negative**, or **Neutral**, and for negative feedback, identifies specific areas of concern. This tool enables hotels to address customer issues proactively and improve service quality.
