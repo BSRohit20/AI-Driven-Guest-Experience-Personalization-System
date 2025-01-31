@@ -3,130 +3,62 @@
 # 🏨 Hotel Management System  
 
 
-# 📝 Sentiment Analysis & 🚨 Slack Alert System
+#  🌟 Hotel Feedback Sentiment Analyzer
+The **Hotel Feedback Sentiment Analyzer** is a 🐍 Python-based tool that processes hotel guest feedback, performs sentiment analysis, and sends alerts for negative reviews via Slack and email. It utilizes OpenAI's language model 🤖 to classify sentiments and identify areas of concern.
 
-Analyze hotel guest feedback seamlessly and get real-time alerts for negative sentiments directly in your Slack workspace! 🎯
+## 🚀 Features
+- **📊 Sentiment Analysis**: Classifies feedback as Positive, Neutral, or Negative.
+- **⚠️ Concern Identification**: Detects specific areas of concern in negative feedback (e.g., Room Quality, Cleanliness, Staff Service, etc.).
+- **💬 Slack Alerts**: Sends notifications to a Slack channel for negative feedback.
+- **📧 Email Alerts**: Sends email notifications for negative feedback.
+- **🖥️ Interactive UI**: Uses Jupyter Notebook widgets for input and analysis.
 
----
+## 🛠 Technologies Used
+- **🐍 Python**
+- **🤖 OpenAI API** (via OpenRouter)
+- **💬 Slack SDK** (Webhook Client)
+- **📧 SMTP** (for email notifications)
+- **📦 ipywidgets** (for interactive UI in Jupyter Notebook)
 
-## 🌟 Features
+## 📥 Installation
+### Prerequisites
+- 🐍 Python 3.x
+- 📓 Jupyter Notebook (for interactive usage)
+- 🔑 OpenAI API Key (via OpenRouter)
+- 🔗 Slack Webhook URL
+- ✉️ Gmail account with App Password enabled
 
-✨ **Interactive Feedback Input**  
-Easily input guest feedback using a clean and simple interface powered by `ipywidgets`.
+### ⚙️ Setup
+1. 🛠️ Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/hotel-feedback-analyzer.git
+   cd hotel-feedback-analyzer
+   ```
+2. 📦 Install dependencies:
+   ```bash
+   pip install pydantic slack_sdk ipywidgets openai
+   ```
+3. 🔧 Set up environment variables or update script with:
+   - `🔑 Your_API_Key` (OpenAI API key from OpenRouter)
+   - `🔗 WEBHOOK_URL` (Slack Webhook URL)
+   - `✉️ your_email@gmail.com` and `🔒 app_password` (Gmail credentials for email alerts)
 
-🤖 **AI-Powered Sentiment Analysis**  
-Leverages OpenAI's advanced models to detect feedback sentiment as **Positive**, **Neutral**, or **Negative**.
+## 🏃‍♂️ Usage
+1. Open 📓 Jupyter Notebook and run the script.
+2. Enter feedback in the 📝 text area and click **🔍 Analyze Feedback**.
+3. View sentiment results and receive **💬 Slack/email alerts** if feedback is negative.
 
-🔍 **Identify Areas of Concern**  
-In case of negative feedback, the system pinpoints the responsible areas (e.g., Room Quality, Staff Service, etc.).
+## 📌 Example
+### 📝 Input:
+> "The room was dirty, and the staff was very rude."
 
-📢 **Real-Time Slack Alerts**  
-Automatically sends a detailed alert to Slack for negative feedback, keeping your team informed and proactive.
-
----
-
-## 🚀 Quick Start
-
-### 🛠️ Prerequisites
-
-Make sure you have Python installed and install the following packages:  
-
-```bash
-pip install pydantic slack_sdk ipywidgets openai
+### ✅ Output:
 ```
-
-### 🔑 Setup
-
-1. **API Key Configuration**  
-   - Get your OpenAI API key from [OpenAI](https://beta.openai.com/signup/).  
-   - Replace `Your_API_Key` in the code with your actual API key.
-
-2. **Slack Webhook URL**  
-   - Set up a webhook URL for your Slack workspace by following the [Slack Webhook Guide](https://api.slack.com/messaging/webhooks).  
-   - Replace `WEBHOOK_URL` in the code with your Slack Webhook URL.
-
-3. **Run the Code**  
-   - Launch the script in a Jupyter Notebook.  
-   - Enter guest feedback in the text area and click "Analyze Feedback" to perform sentiment analysis.
-
----
-
-## 📋 Example Usage
-
-1. **Input Feedback**  
-   Enter feedback like:  
-   `"The room was dirty, and the staff was rude!"`
-
-2. **Output in Jupyter Notebook**  
-   ```
-   ✅ Analysis complete!
-   Sentiment: NEGATIVE
-   Areas of Concern: Room Quality, Staff Service
-   ```
-
-3. **Slack Alert**  
-   The following message is sent to Slack:  
-   ```
-   🚨 *Negative Feedback Alert* 🚨
-   *Timestamp:* 2025-01-24 12:30:00
-   *Feedback:* "The room was dirty, and the staff was rude!"
-   *Sentiment:* NEGATIVE
-   *Areas of Concern:* Room Quality, Staff Service
-   ```
-
----
-
-
----
-
-## 🛠️ Code Highlights
-
-### Core Components  
-
-- **Pydantic Model for Structure**  
-   Ensures feedback analysis results are validated and well-structured:  
-   ```python
-   class Sentiment(BaseModel):
-       sentiment: str
-       responsible_area: str
-   ```
-
-- **Slack Alert Function**  
-   Sends formatted feedback alerts to Slack channels:  
-   ```python
-   def send_slack_alert(feedback, sentiment, areas_of_concern):
-       slack_message = f"""
-       🚨 *Negative Feedback Alert* 🚨
-       *Feedback:* {feedback}
-       *Sentiment:* {sentiment.upper()}
-       *Areas of Concern:* {', '.join(areas_of_concern)}
-       """
-       slack_client.send(text=slack_message)
-   ```
-
-- **Sentiment Analysis with OpenAI**  
-   Integrates OpenAI’s API for contextual feedback understanding:  
-   ```python
-   completion = client.chat.completions.create(
-       model="google/learnlm-1.5-pro-experimental:free",
-       messages=[
-           {"role": "system", "content": "Analyze this feedback..."},
-           {"role": "user", "content": feedback}
-       ]
-   )
-   ```
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Here’s how you can help:
-
-1. Fork the repository 🍴  
-2. Create your feature branch: `git checkout -b feature/my-feature`  
-3. Commit your changes: `git commit -m 'Add some feature'`  
-4. Push to the branch: `git push origin feature/my-feature`  
-5. Submit a pull request 🛠️  
+Sentiment: NEGATIVE
+Areas of Concern: Cleanliness,  Staff Service
+📧 Email alert sent!
+🚨 Slack alert sent!
+```
 
 ---
 
